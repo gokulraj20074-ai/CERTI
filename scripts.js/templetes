@@ -1,0 +1,37 @@
+// ================================
+// Auto-fill certificate details from URL
+// Example: index.html?name=Amal&course=Django
+// ================================
+window.onload = function () {
+    const params = new URLSearchParams(window.location.search);
+
+    const name = params.get("name");
+    const course = params.get("course");
+    const date = params.get("date");
+
+    if (name) {
+        document.getElementById("cert-name").innerText = name;
+    }
+
+    if (course) {
+        document.getElementById("cert-course").innerText = course;
+    }
+
+    if (date) {
+        document.getElementById("cert-date").innerText = date;
+    }
+};
+
+// ================================
+// Print Certificate
+// ================================
+function printCertificate() {
+    window.print();
+}
+
+// ================================
+// Download as PDF (uses browser print)
+// ================================
+function downloadPDF() {
+    window.print();
+}

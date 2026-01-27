@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>High Quality Certificate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+        font-family: "Poppins", sans-serif;
+    }
+
+    .certificate {
+        width: 1000px;
+        height: 650px;
+        margin: 40px auto;
+        background: white;
+        border: 12px solid #d4af37;
+        padding: 50px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        position: relative;
+        text-align: center;
+    }
+
+    .certificate::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 2px dashed #d4af37;
+    }
+
+    h1 {
+        font-size: 48px;
+        color: #1a237e;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        font-size: 22px;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    .name {
+        font-size: 36px;
+        font-weight: 600;
+        color: #000;
+        margin: 20px 0;
+        text-transform: uppercase;
+        border-bottom: 2px solid #d4af37;
+        display: inline-block;
+        padding-bottom: 8px;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-top: 20px;
+        color: #444;
+    }
+
+    .course {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0d47a1;
+        margin: 10px 0;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 80px;
+        padding: 0 60px;
+    }
+
+    .sign {
+        width: 200px;
+        text-align: center;
+    }
+
+    .sign hr {
+        border: none;
+        border-top: 2px solid #333;
+        margin-bottom: 6px;
+    }
+
+    .date {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        color: #333;
+    }
+
+    @media(max-width:1050px) {
+        .certificate {
+            width: 95%;
+            height: auto;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="certificate">
+    <h1>CERTIFICATE OF EXCELLENCE</h1>
+    <h2>This certificate is proudly presented to</h2>
+
+    <div class="name">AMAL R</div>
+
+    <p class="description">
+        For successfully completing the professional training program in
+    </p>
+
+    <div class="course">Python & Django Web Development</div>
+
+    <p class="description">
+        and demonstrating outstanding performance and dedication.
+    </p>
+
+    <div class="footer">
+        <div class="sign">
+            <hr>
+            <strong>Instructor</strong>
+        </div>
+
+        <div class="sign">
+            <hr>
+            <strong>Authorized Signatory</strong>
+        </div>
+    </div>
+
+    <div class="date">
+        Date of Issue: 15 January 2026
+    </div>
+</div>
+
+</body>
+</html>
