@@ -1,37 +1,129 @@
-// ================================
-// Auto-fill certificate details from URL
-// Example: index.html?name=Amal&course=Django
-// ================================
-window.onload = function () {
-    const params = new URLSearchParams(window.location.search);
+const canvas = document.getElementById("certificate");
+const ctx = canvas.getContext("2d");
 
-    const name = params.get("name");
-    const course = params.get("course");
-    const date = params.get("date");
-
-    if (name) {
-        document.getElementById("cert-name").innerText = name;
-    }
-
-    if (course) {
-        document.getElementById("cert-course").innerText = course;
-    }
-
-    if (date) {
-        document.getElementById("cert-date").innerText = date;
-    }
-};
-
-// ================================
-// Print Certificate
-// ================================
-function printCertificate() {
-    window.print();
+function base() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.textAlign = "center";
 }
 
-// ================================
-// Download as PDF (uses browser print)
-// ================================
-function downloadPDF() {
-    window.print();
+// 🟫 TEMPLATE 1: CLASSIC
+function classicTemplate(name, course, date) {
+  base();
+
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = 6;
+  ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+  ctx.font = "48px serif";
+  ctx.fillText("Certificate of Achievement", canvas.width / 2, 140);
+
+  ctx.font = "36px serif";
+  ctx.fillText(name, canvas.width / 2, 280);
+
+  ctx.font = "24px Arial";
+  ctx.fillText(course, canvas.width / 2, 340);
+  ctx.fillText("Date: " + date, canvas.width / 2, 420);
+
+  signature();
 }
+
+// 🟦 TEMPLATE 2: MODERN
+function modernTemplate(name, course, date) {
+  base();
+
+  ctx.fillStyle = "#1abc9c";
+  ctx.fillRect(0, 0, canvas.width, 120);
+
+  ctx.fillStyle = "#000";
+  ctx.font = "44px sans-serif";
+  ctx.fillText("CERTIFICATE", canvas.width / 2, 80);
+
+  ctx.font = "34px Arial";
+  ctx.fillText(name, canvas.width / 2, 300);
+
+  ctx.font = "22px Arial";
+  ctx.fillText(course, canvas.width / 2, 350);
+  ctx.fillText(date, canvas.width / 2, 420);
+
+  signature();
+}
+
+// 🟨 TEMPLATE 3: LUXURY
+function luxuryTemplate(name, course, date) {
+  base();
+
+  ctx.strokeStyle = "#d4af37";
+  ctx.lineWidth = 10;
+  ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+
+  ctx.font = "50px Georgia";
+  ctx.fillStyle = "#d4af37";
+  ctx.fillText("Certificate of Excellence", canvas.width / 2, 160);
+
+  ctx.fillStyle = "#000";
+  ctx.font = "38px Georgia";
+  ctx.fillText(name, canvas.width / 2, 320);
+
+  ctx.font = "26px serif";
+  ctx.fillText(course, canvas.width / 2, 380);
+  ctx.fillText(date, canvas.width / 2, 450);
+
+  goldSeal();
+  signature();
+}
+
+// ✍️ SIGNATURE
+function signature() {
+  ctx.textAlign = "left";
+  ctx.font = "20px Arial";
+  ctx.fillText("__________________", 120, 580);
+  ctx.fillText("Authorized Signature", 130, 610);
+
+  ctx.textAlign = "right";
+  ctx.fillText("__________________", canvas.width - 120, 580);
+  ctx.fillText("Director", canvas.width - 120, 610);
+
+  ctx.textAlign = "center";
+}
+
+// 🟡 GOLD SEAL
+function goldSeal() {
+  ctx.beginPath();
+  ctx.arc(canvas.width / 2, 520, 45, 0, Math.PI * 2);
+  ctx.fillStyle = "#d4af37";
+  ctx.fill();
+
+  ctx.fillStyle = "#000";
+  ctx.font = "16px Arial";
+  ctx.fillText("SEAL", canvas.width / 2, 525);
+}
+
+// 🎯 GENERATE
+function generate() {
+  const name = nameInput();
+  const course = courseInput();
+  const date = dateInput();
+  const template = document.getElementById("template").value;
+
+  if (template === "classic") classicTemplate(name, course, date);
+  if (template === "modern") modernTemplate(name, course, date);
+  if (template === "luxury") luxuryTemplate(name, course, date);
+}
+
+// 📥 DOWNLOAD
+function download() {
+  const a = document.createElement("a");
+  a.download = "certificate.png";
+  a.href = canvas.toDataURL();
+  a.click();
+}
+
+// helpers
+const nameInput = () => document.getElementById("name").value || "Recipient Name";
+const courseInput = () => document.getElementById("course").value || "Achievement Title";
+const dateInput = () => document.getElementById("date").value || "Date";
+
+// default
+classicTemplate("Recipient Name", "Achievement Title", "Date");
