@@ -1,89 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Certificate</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            background: #eaeaea;
-            font-family: "Times New Roman", serif;
-        }
-
-        .certificate {
-            width: 900px;
-            margin: 50px auto;
-            padding: 40px;
-            background: white;
-            border: 8px solid #1a237e;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 40px;
-            color: #1a237e;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            font-size: 22px;
-            margin-top: 10px;
-        }
-
-        .name {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 25px 0;
-            color: #000;
-        }
-
-        .course {
-            font-size: 22px;
-            font-weight: bold;
-            color: #1565c0;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 70px;
-        }
-
-        .sign {
-            text-align: center;
-            width: 40%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Certificate Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #certificate {
+      width: 800px;
+      height: 600px;
+      border: 4px solid #777;
+      margin: auto;
+      background: url('certificate_template.png') no-repeat center/cover;
+      position: relative;
+      color: #333;
+    }
+    #name, #course, #date {
+      position: absolute;
+      width: 100%;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+    }
+    #name { top: 200px; }
+    #course { top: 270px; font-size: 24px; }
+    #date { top: 340px; font-size: 20px; }
+  </style>
 </head>
-
 <body>
 
-<div class="certificate">
-    <h1>Certificate of Achievement</h1>
-    <h2>This certificate is proudly awarded to</h2>
+<h2>Certificate Generator</h2>
 
-    <div class="name">gokul</div>
+<label>
+  Full Name:<br>
+  <input type="text" id="inpName" placeholder="Enter Name">
+</label><br><br>
 
-    <p>for successfully completing the course</p>
+<label>
+  Course Title:<br>
+  <input type="text" id="inpCourse" placeholder="Enter Course Name">
+</label><br><br>
 
-    <div class="course">Python & Django Web Development</div>
+<label>
+  Date:<br>
+  <input type="text" id="inpDate" placeholder="Enter Date">
+</label><br><br>
 
-    <p>conducted by ABC Institute</p>
-    <p><strong>Date:</strong> 15 January 2026</p>
+<button onclick="updateCert()">Preview</button>
+<button onclick="downloadCert()">Download</button>
 
-    <div class="footer">
-        <div class="sign">
-            ______________________
-            <p>Instructor</p>
-        </div>
-
-        <div class="sign">
-            ______________________
-            <p>Authorized Signature</p>
-        </div>
-    </div>
+<div id="certificate">
+  <div id="name"></div>
+  <div id="course"></div>
+  <div id="date"></div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function updateCert() {
+    document.getElementById('name').innerText = document.getElementById('inpName').value;
+    document.getElementById('course').innerText = document.getElementById('inpCourse').value;
+    document.getElementById('date').innerText = document.getElementById('inpDate').value;
+  }
+
+  function downloadCert() {
+    const cert = document.getElementById('certificate');
+    html2canvas(cert).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+</script>
 
 </body>
 </html>
