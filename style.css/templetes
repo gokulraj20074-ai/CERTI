@@ -1,176 +1,49 @@
-/* =========================
-   Global Styles
-========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+const canvas = document.getElementById("certificate");
+const ctx = canvas.getContext("2d");
+
+// initial template
+function drawTemplate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // background
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // border
+  ctx.strokeStyle = "#2c3e50";
+  ctx.lineWidth = 8;
+  ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+  // title
+  ctx.fillStyle = "#2c3e50";
+  ctx.font = "48px serif";
+  ctx.textAlign = "center";
+  ctx.fillText("Certificate of Completion", canvas.width / 2, 150);
 }
 
-body {
-    background: linear-gradient(135deg, #f3f4f7, #e6e8ef);
-    font-family: "Poppins", Arial, sans-serif;
+function generate() {
+  drawTemplate();
+
+  const name = document.getElementById("name").value;
+  const course = document.getElementById("course").value;
+  const date = document.getElementById("date").value;
+
+  ctx.font = "36px serif";
+  ctx.fillText(name, canvas.width / 2, 280);
+
+  ctx.font = "24px Arial";
+  ctx.fillText(`has successfully completed`, canvas.width / 2, 330);
+  ctx.fillText(course, canvas.width / 2, 380);
+  ctx.fillText(`Date: ${date}`, canvas.width / 2, 450);
 }
 
-/* =========================
-   Certificate Container
-========================= */
-.certificate {
-    width: 1000px;
-    min-height: 650px;
-    margin: 40px auto;
-    background: #ffffff;
-    border: 12px solid #d4af37;
-    padding: 50px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+// download image
+function download() {
+  const link = document.createElement("a");
+  link.download = "certificate.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
 }
 
-/* Inner dashed border (Canva premium look) */
-.certificate::before {
-    content: "";
-    position: absolute;
-    top: 18px;
-    left: 18px;
-    right: 18px;
-    bottom: 18px;
-    border: 2px dashed #d4af37;
-    pointer-events: none;
-}
-
-/* =========================
-   Headings
-========================= */
-.certificate h1 {
-    font-size: 48px;
-    color: #1a237e;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-}
-
-.certificate h2 {
-    font-size: 22px;
-    color: #555;
-    margin-bottom: 30px;
-}
-
-/* =========================
-   Certificate Name
-========================= */
-.name {
-    font-size: 36px;
-    font-weight: 600;
-    color: #000;
-    margin: 25px 0;
-    text-transform: uppercase;
-    display: inline-block;
-    padding-bottom: 8px;
-    border-bottom: 3px solid #d4af37;
-}
-
-/* =========================
-   Description & Course
-========================= */
-.description {
-    font-size: 18px;
-    color: #444;
-    margin-top: 18px;
-}
-
-.course {
-    font-size: 26px;
-    font-weight: bold;
-    color: #0d47a1;
-    margin: 12px 0;
-}
-
-/* =========================
-   Footer Signatures
-========================= */
-.footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 90px;
-    padding: 0 60px;
-}
-
-.sign {
-    width: 220px;
-    text-align: center;
-}
-
-.sign hr {
-    border: none;
-    border-top: 2px solid #333;
-    margin-bottom: 6px;
-}
-
-.sign strong {
-    font-size: 16px;
-    color: #333;
-}
-
-/* =========================
-   Date Section
-========================= */
-.date {
-    position: absolute;
-    bottom: 35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    color: #333;
-}
-
-/* =========================
-   Buttons (Optional)
-========================= */
-.buttons {
-    text-align: center;
-    margin-top: 20px;
-}
-
-button {
-    padding: 10px 22px;
-    margin: 5px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    background: #1a237e;
-    color: white;
-}
-
-button:hover {
-    background: #0d47a1;
-}
-
-/* =========================
-   Responsive
-========================= */
-@media (max-width: 1050px) {
-    .certificate {
-        width: 95%;
-        padding: 30px;
-    }
-
-    .footer {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-}
-
-/* =========================
-   Print Style
-========================= */
-@media print {
-    body {
-        background: none;
-    }
-
-    .buttons {
-        display: none;
-    }
-}
+// draw on load
+drawTemplate();
