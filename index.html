@@ -1,31 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Advanced Certificate Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Certificate Template</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>Certificate Generator</h1>
-
+<div class="wrap">
   <div class="controls">
-    <input id="name" placeholder="Recipient Name">
-    <input id="course" placeholder="Course / Achievement">
-    <input id="date" placeholder="Date">
-
-    <select id="template">
-      <option value="classic">Classic</option>
-      <option value="modern">Modern</option>
-      <option value="luxury">Luxury</option>
-    </select>
-
-    <button onclick="generate()">Generate</button>
+    <input id="name" placeholder="Recipient Name" value="Peter Parker">
+    <input id="date" placeholder="Date" value="12th September 2021">
+    <button onclick="draw()">Generate</button>
     <button onclick="download()">Download</button>
   </div>
 
-  <canvas id="certificate" width="1000" height="700"></canvas>
+  <canvas id="canvas" width="1100" height="750"></canvas>
 </div>
 
 <script src="script.js"></script>
