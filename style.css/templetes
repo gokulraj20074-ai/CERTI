@@ -1,49 +1,32 @@
-const canvas = document.getElementById("certificate");
-const ctx = canvas.getContext("2d");
-
-// initial template
-function drawTemplate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // background
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // border
-  ctx.strokeStyle = "#2c3e50";
-  ctx.lineWidth = 8;
-  ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
-
-  // title
-  ctx.fillStyle = "#2c3e50";
-  ctx.font = "48px serif";
-  ctx.textAlign = "center";
-  ctx.fillText("Certificate of Completion", canvas.width / 2, 150);
+body {
+  background: #eef1f5;
+  font-family: Arial, sans-serif;
 }
 
-function generate() {
-  drawTemplate();
-
-  const name = document.getElementById("name").value;
-  const course = document.getElementById("course").value;
-  const date = document.getElementById("date").value;
-
-  ctx.font = "36px serif";
-  ctx.fillText(name, canvas.width / 2, 280);
-
-  ctx.font = "24px Arial";
-  ctx.fillText(`has successfully completed`, canvas.width / 2, 330);
-  ctx.fillText(course, canvas.width / 2, 380);
-  ctx.fillText(`Date: ${date}`, canvas.width / 2, 450);
+.container {
+  text-align: center;
+  max-width: 1100px;
+  margin: auto;
 }
 
-// download image
-function download() {
-  const link = document.createElement("a");
-  link.download = "certificate.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
+.controls input,
+.controls select {
+  padding: 10px;
+  margin: 5px;
+  width: 220px;
 }
 
-// draw on load
-drawTemplate();
+button {
+  padding: 10px 25px;
+  margin: 8px;
+  cursor: pointer;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+}
+
+canvas {
+  background: white;
+  border: 3px solid #333;
+  margin-top: 20px;
+}
