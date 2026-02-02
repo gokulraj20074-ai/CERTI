@@ -2,25 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Certificate Generator</title>
+  <title>Advanced Certificate Generator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>Certificate Generator</h1>
+<div class="container">
+  <h1>Certificate Generator</h1>
 
-    <div class="form">
-      <input id="name" type="text" placeholder="Recipient Name" />
-      <input id="course" type="text" placeholder="Course Title" />
-      <input id="date" type="text" placeholder="Date" />
-      <button onclick="generate()">Generate Certificate</button>
-      <button onclick="download()">Download</button>
-    </div>
+  <div class="controls">
+    <input id="name" placeholder="Recipient Name">
+    <input id="course" placeholder="Course / Achievement">
+    <input id="date" placeholder="Date">
 
-    <canvas id="certificate" width="900" height="650"></canvas>
+    <select id="template">
+      <option value="classic">Classic</option>
+      <option value="modern">Modern</option>
+      <option value="luxury">Luxury</option>
+    </select>
+
+    <button onclick="generate()">Generate</button>
+    <button onclick="download()">Download</button>
   </div>
 
-  <script src="script.js"></script>
+  <canvas id="certificate" width="1000" height="700"></canvas>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
