@@ -1,129 +1,99 @@
-const canvas = document.getElementById("certificate");
+const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-function base() {
+function border() {
+  ctx.strokeStyle = "#1f4fb2";
+  ctx.lineWidth = 8;
+  ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+  ctx.strokeStyle = "#a9bfe8";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+}
+
+function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  border();
+
+  // Title
   ctx.textAlign = "center";
-}
+  ctx.fillStyle = "#1f4fb2";
+  ctx.font = "60px Times New Roman";
+  ctx.fillText("CERTIFICATE", canvas.width / 2, 160);
 
-// 🟫 TEMPLATE 1: CLASSIC
-function classicTemplate(name, course, date) {
-  base();
+  // Subtitle
+  ctx.font = "22px cursive";
+  ctx.fillStyle = "#555";
+  ctx.fillText("This certificate is presented to", canvas.width / 2, 215);
 
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = 6;
-  ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-
-  ctx.font = "48px serif";
-  ctx.fillText("Certificate of Achievement", canvas.width / 2, 140);
-
-  ctx.font = "36px serif";
-  ctx.fillText(name, canvas.width / 2, 280);
-
-  ctx.font = "24px Arial";
-  ctx.fillText(course, canvas.width / 2, 340);
-  ctx.fillText("Date: " + date, canvas.width / 2, 420);
-
-  signature();
-}
-
-// 🟦 TEMPLATE 2: MODERN
-function modernTemplate(name, course, date) {
-  base();
-
-  ctx.fillStyle = "#1abc9c";
-  ctx.fillRect(0, 0, canvas.width, 120);
-
+  // Name
+  const name = document.getElementById("name").value;
+  ctx.font = "bold 58px cursive";
   ctx.fillStyle = "#000";
-  ctx.font = "44px sans-serif";
-  ctx.fillText("CERTIFICATE", canvas.width / 2, 80);
-
-  ctx.font = "34px Arial";
   ctx.fillText(name, canvas.width / 2, 300);
 
-  ctx.font = "22px Arial";
-  ctx.fillText(course, canvas.width / 2, 350);
-  ctx.fillText(date, canvas.width / 2, 420);
+  // Description
+  ctx.font = "18px Arial";
+  ctx.fillStyle = "#333";
+  wrapText(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim ut arcu vitae aliquet. Cras auctor, mauris ut egestas volutpat, neque felis semper urna, at venenatis lacus nibh maximus nisi.",
+    canvas.width / 2 - 400,
+    360,
+    800,
+    26
+  );
 
-  signature();
-}
-
-// 🟨 TEMPLATE 3: LUXURY
-function luxuryTemplate(name, course, date) {
-  base();
-
-  ctx.strokeStyle = "#d4af37";
-  ctx.lineWidth = 10;
-  ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
-
-  ctx.font = "50px Georgia";
-  ctx.fillStyle = "#d4af37";
-  ctx.fillText("Certificate of Excellence", canvas.width / 2, 160);
-
-  ctx.fillStyle = "#000";
-  ctx.font = "38px Georgia";
-  ctx.fillText(name, canvas.width / 2, 320);
-
-  ctx.font = "26px serif";
-  ctx.fillText(course, canvas.width / 2, 380);
-  ctx.fillText(date, canvas.width / 2, 450);
-
-  goldSeal();
-  signature();
-}
-
-// ✍️ SIGNATURE
-function signature() {
+  // Date
   ctx.textAlign = "left";
-  ctx.font = "20px Arial";
-  ctx.fillText("__________________", 120, 580);
-  ctx.fillText("Authorized Signature", 130, 610);
-
-  ctx.textAlign = "right";
-  ctx.fillText("__________________", canvas.width - 120, 580);
-  ctx.fillText("Director", canvas.width - 120, 610);
-
-  ctx.textAlign = "center";
-}
-
-// 🟡 GOLD SEAL
-function goldSeal() {
-  ctx.beginPath();
-  ctx.arc(canvas.width / 2, 520, 45, 0, Math.PI * 2);
-  ctx.fillStyle = "#d4af37";
-  ctx.fill();
-
-  ctx.fillStyle = "#000";
   ctx.font = "16px Arial";
-  ctx.fillText("SEAL", canvas.width / 2, 525);
+  ctx.fillText("DATE", 180, 560);
+  ctx.font = "bold 16px Arial";
+  ctx.fillText(document.getElementById("date").value, 180, 585);
+
+  // Signature
+  ctx.textAlign = "right";
+  ctx.font = "16px Arial";
+  ctx.fillText("SIGNATURE", canvas.width - 180, 560);
+  ctx.font = "20px cursive";
+  ctx.fillText("Dr. Stephen Strange", canvas.width - 180, 590);
+
+  // Seal
+  ctx.beginPath();
+  ctx.arc(canvas.width / 2, 560, 40, 0, Math.PI * 2);
+  ctx.strokeStyle = "#e74c3c";
+  ctx.lineWidth = 5;
+  ctx.stroke();
+  ctx.font = "14px Arial";
+  ctx.fillStyle = "#e74c3c";
+  ctx.textAlign = "center";
+  ctx.fillText("OFFICIAL", canvas.width / 2, 565);
 }
 
-// 🎯 GENERATE
-function generate() {
-  const name = nameInput();
-  const course = courseInput();
-  const date = dateInput();
-  const template = document.getElementById("template").value;
-
-  if (template === "classic") classicTemplate(name, course, date);
-  if (template === "modern") modernTemplate(name, course, date);
-  if (template === "luxury") luxuryTemplate(name, course, date);
+function wrapText(text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && n > 0) {
+      ctx.fillText(line, x + maxWidth / 2, y);
+      line = words[n] + " ";
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x + maxWidth / 2, y);
 }
 
-// 📥 DOWNLOAD
 function download() {
   const a = document.createElement("a");
   a.download = "certificate.png";
-  a.href = canvas.toDataURL();
+  a.href = canvas.toDataURL("image/png");
   a.click();
 }
 
-// helpers
-const nameInput = () => document.getElementById("name").value || "Recipient Name";
-const courseInput = () => document.getElementById("course").value || "Achievement Title";
-const dateInput = () => document.getElementById("date").value || "Date";
-
-// default
-classicTemplate("Recipient Name", "Achievement Title", "Date");
+draw();
