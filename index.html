@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Certificate Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>Online Certificate Generator</h1>
+  <div class="container">
+    <h1>Certificate Generator</h1>
 
-<div class="controls">
-  <input id="nameInput" placeholder="Recipient Name">
-  <input id="courseInput" placeholder="Course / Achievement">
-  <input id="dateInput" placeholder="Date">
-  <button onclick="updateCertificate()">Generate</button>
-  <button onclick="downloadCertificate()">Download</button>
-</div>
+    <div class="form">
+      <input id="name" type="text" placeholder="Recipient Name" />
+      <input id="course" type="text" placeholder="Course Title" />
+      <input id="date" type="text" placeholder="Date" />
+      <button onclick="generate()">Generate Certificate</button>
+      <button onclick="download()">Download</button>
+    </div>
 
-<div id="certificate">
-  <div class="title">Certificate of Achievement</div>
-  <div id="certName" class="name"></div>
-  <div id="certCourse" class="course"></div>
-  <div id="certDate" class="date"></div>
-</div>
+    <canvas id="certificate" width="900" height="650"></canvas>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
