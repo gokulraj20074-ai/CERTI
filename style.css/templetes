@@ -1,32 +1,29 @@
 body {
-  background: #eef1f5;
+  background: #f4c400;
   font-family: Arial, sans-serif;
 }
 
-.container {
+.wrap {
   text-align: center;
-  max-width: 1100px;
-  margin: auto;
 }
 
-.controls input,
-.controls select {
+.controls input {
   padding: 10px;
   margin: 5px;
-  width: 220px;
+  width: 250px;
 }
 
 button {
-  padding: 10px 25px;
-  margin: 8px;
-  cursor: pointer;
-  background: #2c3e50;
-  color: #fff;
+  padding: 10px 20px;
+  margin: 5px;
+  background: #003399;
+  color: white;
   border: none;
+  cursor: pointer;
 }
 
 canvas {
   background: white;
-  border: 3px solid #333;
   margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
